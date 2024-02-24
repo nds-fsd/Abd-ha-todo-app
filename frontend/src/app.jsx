@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import task from "/frontend/src/components/task.js";
+
 
 export default function App() {
   const [task, settasks] = useState([]);

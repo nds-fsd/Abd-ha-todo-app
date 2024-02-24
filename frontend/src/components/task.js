@@ -37,8 +37,9 @@ export default function Task(props) {
     };
 
     return (
-        <div className="task">
+         <div className="task">
                 <p>{task.task}</p>
+
             <div className="mutations">
                 <button
                     className="task__status"
