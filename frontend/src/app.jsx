@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import task from "./components/task.js";
+import task from "/frontend/src/components/task.js";
 
 export default function App() {
   const [task, settasks] = useState([]);
@@ -12,15 +12,15 @@ export default function App() {
 
       settasks(task);
     }
-    getTodos();
+    gettask();
   }, []);
 
   const createNewTask = async (e) => {
     e.preventDefault();
     if (content.length > 3) {
-      const res = await fetch("/api/todos", {
+      const res = await fetch("./backend/src/controllers/task.js", {
         method: "POST",
-        body: JSON.stringify({ todo: content }),
+        body: JSON.stringify({ task: content }),
         headers: {
           "Content-Type": "application/json",
         },
@@ -34,17 +34,17 @@ export default function App() {
 
   return (
     <main className="container">
-      <h1 className="title">Awesome Todos</h1>
-      <form className="form" onSubmit={createNewTodo}>
+      <h1 className="title">postello</h1>
+      <form className="form" onSubmit={createNewTask}>
         <input 
         type="text"
         value={content}
         onChange={(e) => setContent(e.target.value)}
-        placeholder="Enter a new todo..."
+        placeholder="Enter a new task..."
         className="form__input"
         required 
         />
-        <button className="form__button" type="submit">Create Todo</button>
+        <button className="form__button" type="submit">Create</button>
       </form>
       <div className="task">
         {(task.length > 0) &&
