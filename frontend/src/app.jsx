@@ -1,34 +1,34 @@
 import { useEffect, useState } from "react";
-
+import Task from "./components/task.jsx";
 
 export default function App() {
-  const [task, settasks] = useState([]);
+  const [tasks, setTasks] = useState([]);
   const [content, setContent] = useState("");
 
   useEffect(() => {
-    async function gettask() {
-      const res = await fetch("./backend/src/controllers/task.js");
-      const task = await res.json();
+    async function getTasks() {
+      const res = await fetch("http://localhost:3001/tasks");
+      const tasks = await res.json();
 
-      settasks(task);
+      setTasks(tasks);
     }
-    gettask();
+    getTasks();
   }, []);
 
   const createNewTask = async (e) => {
     e.preventDefault();
     if (content.length > 3) {
-      const res = await fetch("./backend/src/controllers/task.js", {
+      const res = await fetch("http://localhost:3001/tasks", {
         method: "POST",
-        body: JSON.stringify({ task: content }),
+        body: JSON.stringify({ title: content, createdAt: Date.now(), completed: false }),
         headers: {
           "Content-Type": "application/json",
         },
       });
-      const newtask = await res.json();
+      const newTask = await res.json();
 
       setContent("");
-      settasks([...task, newtask]);
+      setTasks([...tasks, newTask]);
     }
   }
 
@@ -36,20 +36,19 @@ export default function App() {
     <main className="container">
       <h1 className="title">postello</h1>
       <form className="form" onSubmit={createNewTask}>
-        <input 
+        <input
         type="text"
         value={content}
         onChange={(e) => setContent(e.target.value)}
         placeholder="Enter a new task..."
         className="form__input"
-        required 
+        required
         />
         <button className="form__button" type="submit">Create</button>
       </form>
       <div className="task">
-        {(task.length > 0) &&
-          task.map((task) => (
-            <task key={task._id} task={task} settasks={settasks}   />
+        {tasks.map((task) => (
+            <Task key={task._id} task={task} setTasks={setTasks}   />
           ))
         }
       </div>
