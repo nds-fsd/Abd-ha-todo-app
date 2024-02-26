@@ -20,8 +20,7 @@ export default function Task(props) {
     };
 
     const deleteTask = async (taskId) => {
-        // TODO delete endpoint is not implemented in backend
-        const res = await fetch(`backend/src/controllers/task.js${taskId}`, {
+        const res = await fetch(`http://localhost:3001/tasks/${taskId}`, {
             method: "DELETE"
         });
         const json = await res.json();

@@ -22,6 +22,23 @@ router.get('/tasks', async (req, res) => {
       res.status(400).json({ message: error.message });
     }
   });
+
+  // DELETE task
+router.delete('/tasks/:id', async (req, res) => {
+  try {
+    const task = await Task.findById(req.params.id);
+
+    if (!task) {
+      return res.status(404).json({ message: 'Task not found' });
+    }
+
+    await task.remove();
+
+    res.status(200).json({ message: 'Task deleted successfully' });
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
   
   // PUT mark task as completed or incompleted
   router.put('/tasks/:id', async (req, res) => {
