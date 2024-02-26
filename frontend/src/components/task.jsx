@@ -1,29 +1,26 @@
 export default function Task(props) {
-    const { task, settasks } = props;
+    const { task, setTasks } = props;
 
-    const updatetask = async (taskId, taskStatus) => {
-        const res = await fetch(`backend/src/controllers/task.js${taskId}`, {
+    const updateTask = async (taskId, taskStatus) => {
+        await fetch(`http://localhost:3001/tasks/${taskId}`, {
             method: "PUT",
-            body: JSON.stringify({ status: taskStatus }),
+            body: JSON.stringify({ completed: taskStatus }),
             headers: {
                 "Content-Type": "application/json"
             },
         });
-
-        const json = await res.json();
-        if (json.acknowledged) {
-            settasks(currentTasks => {
-                return currentTasks.map((currentTask) => {
-                    if (currentTask._id === taskId) {
-                        return { ...currentTask, status: !currentTask.status };
-                    }
-                    return currentTask;
-                });
+        setTasks(currentTasks => {
+            return currentTasks.map((currentTask) => {
+                if (currentTask._id === taskId) {
+                    return { ...currentTask, completed: !currentTask.completed };
+                }
+                return currentTask;
             });
-        }
+        });
     };
 
-    const deletetask = async (taskId) => {
+    const deleteTask = async (taskId) => {
+        // TODO delete endpoint is not implemented in backend
         const res = await fetch(`backend/src/controllers/task.js${taskId}`, {
             method: "DELETE"
         });
@@ -38,18 +35,18 @@ export default function Task(props) {
 
     return (
          <div className="task">
-                <p>{task.task}</p>
+                <p>{task.title}</p>
 
             <div className="mutations">
                 <button
                     className="task__status"
-                    onClick={() => updatetask(task._id, task.status)}
+                    onClick={() => updateTask(task._id, !task.completed)}
                 >
-                    {(task.status) ? "☑" : "☐"}
+                    {(task.completed) ? "☑" : "☐"}
                 </button>
                 <button
                     className="task__delete"
-                    onClick={() => deletetask(task._id)}
+                    onClick={() => deleteTask(task._id)}
                 >
                     🗑️
                 </button>

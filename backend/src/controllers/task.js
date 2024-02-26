@@ -1,5 +1,5 @@
 const {Router} =  require('express');
-
+const Task = require('../schemas/taskschema')
 const router =  Router();
 // GET all tasks
 router.get('/tasks', async (req, res) => {
