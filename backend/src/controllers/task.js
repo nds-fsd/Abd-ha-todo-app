@@ -25,6 +25,7 @@ router.get('/tasks', async (req, res) => {
 
   // DELETE task
 router.delete('/tasks/:id', async (req, res) => {
+  console.log(req.params.id)
   try {
     const task = await Task.findById(req.params.id);
 

@@ -1,5 +1,7 @@
+import styles from "./task.module.css"
+
 export default function Task(props) {
-    const { task, setTasks } = props;
+    const { task, setTasks, update, setUpdate } = props;
 
     const updateTask = async (taskId, taskStatus) => {
         await fetch(`http://localhost:3001/tasks/${taskId}`, {
@@ -29,11 +31,11 @@ export default function Task(props) {
                 return currentTasks
                 .filter((currentTask) => (currentTask._id !== taskId));
             })
-        }
+        } setUpdate(!update)
     };
 
     return (
-         <div className="task">
+         <div className={styles.task}> 
                 <p>{task.title}</p>
 
             <div className="mutations">

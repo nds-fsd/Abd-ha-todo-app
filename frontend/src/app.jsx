@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import Task from "./components/task.jsx";
+import "./index.css"
 
 export default function App() {
   const [tasks, setTasks] = useState([]);
   const [content, setContent] = useState("");
+
+  const [update, setUpdate] = useState(false);
 
   useEffect(() => {
     async function getTasks() {
@@ -13,7 +16,7 @@ export default function App() {
       setTasks(tasks);
     }
     getTasks();
-  }, []);
+  }, [update]);
 
   const createNewTask = async (e) => {
     e.preventDefault();
@@ -38,6 +41,7 @@ export default function App() {
       });
   
       setTasks(tasks.filter((task) => task.id !== id));
+      setUpdate(!update);
     };
   
   
@@ -58,8 +62,9 @@ export default function App() {
       </form>
       <div className="task">
         {tasks.map((task) => (
-            <Task key={task._id} task={task} setTasks={setTasks}   />
-          ))
+            <Task key={task._id} task={task} setTasks={setTasks} update={update}  setUpdate={setUpdate} />
+
+            ))
         }
       </div>
     </main>
