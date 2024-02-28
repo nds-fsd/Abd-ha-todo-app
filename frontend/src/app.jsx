@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Task from "./components/task.jsx";
+import Task from "./components/taskform/task.jsx";
 import "./index.css"
 
 export default function App() {

@@ -3,12 +3,13 @@ const express = require('express');
 const {connectDB} =  require("./mongo/connection");
 const cors = require('cors');
 const {taskRouter} =  require("./controllers/task");
+const {userRouter} =  require("./controllers/auth");
 const app = express();
 app.use(cors());
 app.use(express.json());
 
 app.use(taskRouter)
-
+app.use(userRouter)
 
 connectDB().then(() => console.log("Connected to database!"))
 
