@@ -6,8 +6,6 @@ export default function App() {
   const [tasks, setTasks] = useState([]);
   const [content, setContent] = useState("");
 
-  const [update, setUpdate] = useState(false);
-
   useEffect(() => {
     async function getTasks() {
       const res = await fetch("http://localhost:3001/tasks");
@@ -16,7 +14,7 @@ export default function App() {
       setTasks(tasks);
     }
     getTasks();
-  }, [update]);
+  }, []);
 
   const createNewTask = async (e) => {
     e.preventDefault();
@@ -34,18 +32,6 @@ export default function App() {
       setTasks([...tasks, newTask]);
     }};
 
-    //delete
-    const deleteTask = async (id) => {
-      await fetch(`http://localhost:3001/tasks/${id}`, {
-        method: "DELETE",
-      });
-  
-      setTasks(tasks.filter((task) => task.id !== id));
-      setUpdate(!update);
-    };
-  
-  
-
   return (
     <main className="container">
       <h1 className="title">postello</h1>
@@ -62,7 +48,7 @@ export default function App() {
       </form>
       <div className="task">
         {tasks.map((task) => (
-            <Task key={task._id} task={task} setTasks={setTasks} update={update}  setUpdate={setUpdate} />
+            <Task key={task._id} task={task} setTasks={setTasks} />
 
             ))
         }
