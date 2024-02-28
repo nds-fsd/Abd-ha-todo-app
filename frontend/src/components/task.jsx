@@ -1,7 +1,7 @@
 import styles from "./task.module.css"
 
 export default function Task(props) {
-    const { task, setTasks, update, setUpdate } = props;
+    const { task, setTasks } = props;
 
     const updateTask = async (taskId, taskStatus) => {
         await fetch(`http://localhost:3001/tasks/${taskId}`, {
@@ -22,16 +22,13 @@ export default function Task(props) {
     };
 
     const deleteTask = async (taskId) => {
-        const res = await fetch(`http://localhost:3001/tasks/${taskId}`, {
+        await fetch(`http://localhost:3001/tasks/${taskId}`, {
             method: "DELETE"
         });
-        const json = await res.json();
-        if (json.acknowledged) {
-            settasks(currentTasks => {
-                return currentTasks
-                .filter((currentTask) => (currentTask._id !== taskId));
-            })
-        } setUpdate(!update)
+        setTasks(currentTasks => {
+            return currentTasks
+              .filter((currentTask) => (currentTask._id !== taskId));
+        })
     };
 
     return (
