@@ -1,14 +1,14 @@
 const {Router} =  require('express');
-const User = require('../schemas/userschema')
+const Users = require('../schemas/userschema')
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
 const router =  Router();
 
 //get all users
-router.route('/').get(async (req,res)=>{
+router.route('/users').get(async (req,res)=>{
     try{
-        let userData = await User.find();
+        let userData = await Users.find();
         res.status(200).json(userData);
     } catch (error) {
         res.status(500).json({message: error.message});
@@ -20,7 +20,7 @@ router.route('/register').post(async (req,res)=>{
     const {name, email, password} = req.body;
 
     try{
-        let user = await User.findOne({email});
+        let user = await Users.findOne({email});
 
         if(user){
             return res.status(400).json({message: "User already exists"});
@@ -29,7 +29,7 @@ router.route('/register').post(async (req,res)=>{
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
 
-        user = new User({name, email, password: hashedPassword});
+        user = new Users({name, email, password: hashedPassword});
 
         await user.save();
 
@@ -46,7 +46,7 @@ router.route('/login').post(async (req,res)=>{
     const {email, password} = req.body;
 
     try{
-        let user = await User.findOne({email});
+        let user = await Users.findOne({email});
 
         if(!user){
             return res.status(400).json({message: "User not found"});
