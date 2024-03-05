@@ -32,7 +32,7 @@ router.route('/register').post(async (req,res)=>{
         user = new Users({name, email, password: hashedPassword});
 
         await user.save();
-
+        
         const token = jwt.sign({_id: user._id}, process.env.SECRET_KEY);
 
         res.status(200).json({token});

@@ -6,8 +6,19 @@ const Signup = () => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      const response = await axios.post("/api/auth/register", {
+        email,
+        name,
+        password,
+      });
+      setMessage(response.data.message);
+    } catch (error) {
+      console.error("Registration failed:", error.response.data.error);
+      setMessage(error.response.data.error);
+    }
   }
 
   return (

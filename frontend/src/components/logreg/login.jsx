@@ -1,13 +1,35 @@
 import { useState } from 'react';
+import {useNavigate} from  'react-router-dom';
+import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  const handleSubmit = (e) => {
+  const navigate = useNavigate();
+  const handleSubmit = async (e) => {
     e.preventDefault();
-  }
+
+    try {
+      const response = await axios.post("/api/auth/login", {
+        email,
+        password,
+      });
+      setToken(response.data.token);
+      localStorage.setItem("token", response.data.token);
+      navigate("/app");
+    } catch (error) {
+      console.error("Authentication failed:", error);
+      setToken(null);
+      localStorage.removeItem("token");
+      if (error.response && error.response.data) {
+        setErrorMessage(error.response.data); // Set the error message if present in the error response
+      } else {
+        setErrorMessage("An unexpected error occurred.");
+      }
+    }
+  };
+  
 
   return (
     <div className="d-flex justify-content-center align-items-center vh-100">
