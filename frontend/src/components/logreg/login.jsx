@@ -11,7 +11,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("/api/auth/login", {
+      const response = await axios.post("http://localhost:3001/login", {
         email,
         password,
       });
@@ -23,7 +23,7 @@ const Login = () => {
       setToken(null);
       localStorage.removeItem("token");
       if (error.response && error.response.data) {
-        setErrorMessage(error.response.data); // Set the error message if present in the error response
+        setErrorMessage(error.response.data); 
       } else {
         setErrorMessage("An unexpected error occurred.");
       }

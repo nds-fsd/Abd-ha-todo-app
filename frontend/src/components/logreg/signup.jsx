@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Signup = () => {
@@ -9,11 +10,14 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("/api/auth/register", {
+      const response = await axios.post("http://localhost:3001/register", {
         email,
         name,
         password,
       });
+      setToken(response.data.token);
+      localStorage.setItem("token", response.data.token);
+      navigate("/app");
       setMessage(response.data.message);
     } catch (error) {
       console.error("Registration failed:", error.response.data.error);
