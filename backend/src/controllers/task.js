@@ -1,10 +1,6 @@
 const {Router} =  require('express');
-const Task = require('../schemas/taskschema')
+const Task = require('../schemas/taskschema');
 const router =  Router();
-const authenticate = require('../middleware/authenticate');
-
-// Added this line to protect the routes with authentication middleware
-router.use(authenticate); 
 
 // GET all tasks
 router.get('/tasks', async (req, res) => {

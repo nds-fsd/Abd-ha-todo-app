@@ -2,12 +2,10 @@ import React from 'react';
 
 export default function LandingPage() {
   
-  // Redirect to login page
   const handleLoginClick = () => {
     window.location.href = '/login';
   };
 
-  // Redirect to signup page
   const handleSignupClick = () => {
     window.location.href = '/signup';
   };
