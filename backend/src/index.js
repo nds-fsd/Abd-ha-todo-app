@@ -10,7 +10,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use('/tasks',taskRouter);
+app.use(taskRouter);
 app.use('/users',logreguser);
 
 connectDB().then(() => console.log("Connected to database!"))
