@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Task from "./components/taskform/task.jsx";
+import Login from "./components/logreg/login.jsx";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import "./index.css"
 
@@ -7,7 +9,7 @@ import "./index.css"
 export default function App() {
   const [tasks, setTasks] = useState([]);
   const [content, setContent] = useState("");
-
+  const navigate = useNavigate();
   useEffect(() => {
     async function getTasks() {
       const res = await fetch("http://localhost:3001/tasks");
@@ -34,9 +36,15 @@ export default function App() {
       setTasks([...tasks, newTask]);
     }};
 
+    const handleLoginSuccess = () => {
+      navigate("/app");
+    };
+  
+
   return (
     <main className="container">
       <h1 className="title">postello</h1>
+      <Login onLoginSuccess={handleLoginSuccess} />
       <form className="form" onSubmit={createNewTask}>
         <input
         type="text"
