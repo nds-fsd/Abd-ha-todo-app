@@ -6,18 +6,16 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:3001/login", {
+      const response = await axios.post("http://localhost:3001/users/login", {
         email,
         password,
       });
       setToken(response.data.token);
       localStorage.setItem("token", response.data.token);
-      navigate("/app");
     } catch (error) {
       console.error("Authentication failed:", error);
       setToken(null);
@@ -30,6 +28,7 @@ const Login = () => {
     }
   };
   
+  useNavigate("/app");
 
   return (
     <div className="d-flex justify-content-center align-items-center vh-100">

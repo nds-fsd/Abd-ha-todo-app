@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import {useNavigate} from  'react-router-dom';
 import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -10,20 +11,20 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:3001/register", {
+      const response = await axios.post("http://localhost:3001/users/register", {
         email,
         name,
         password,
       });
       setToken(response.data.token);
       localStorage.setItem("token", response.data.token);
-      navigate("/app");
       setMessage(response.data.message);
     } catch (error) {
       console.error("Registration failed:", error.response.data.error);
       setMessage(error.response.data.error);
     }
   }
+  useNavigate("/app");
 
   return (
     <div className="d-flex justify-content-center align-items-center vh-100">

@@ -6,17 +6,17 @@ const bcrypt = require('bcrypt');
 const router =  Router();
 
 //get all users
-router.route('/users').get(async (req,res)=>{
+router.get('/users'), async (req,res)=>{
     try{
         let userData = await Users.find();
         res.status(200).json(userData);
     } catch (error) {
         res.status(500).json({message: error.message});
     }
-});
+};
 
 //register a new user
-router.route('/register').post(async (req,res)=>{
+router.post('/register'), async (req,res)=>{
     const {name, email, password} = req.body;
 
     try{
@@ -39,10 +39,10 @@ router.route('/register').post(async (req,res)=>{
     } catch (error) {
         res.status(500).json({message: error.message});
     }
-});
+};
 
 //login a user
-router.route('/login').post(async (req,res)=>{
+router.post('/login'), async (req,res)=>{
     const {email, password} = req.body;
 
     try{
@@ -64,6 +64,6 @@ router.route('/login').post(async (req,res)=>{
     } catch (error) {
         res.status(500).json({message: error.message});
     }
-});
+};
 
 module.exports = router;
