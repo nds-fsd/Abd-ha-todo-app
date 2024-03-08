@@ -14,7 +14,7 @@ export default function LandingPage() {
     <div className="container mt-5">
       <div className="row justify-content-center">
         <div className="col-md-6">
-          <h1 className="text-center mb-4">Welcome to Our App</h1>
+          <h1 className="text-center mb-4">Welcome to Postello</h1>
           <button className="btn btn-primary btn-block mb-3" onClick={handleLoginClick}>
             Have an account? Click here to login
           </button>
