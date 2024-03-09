@@ -5,12 +5,13 @@ It consists of a landing page that redirects to sign-up / sign-in forms,
 and a simple to-do list application.
 
 Built With:
-ReactJS
-CSS (Reset,Bootstrap)
-NodeJS
-ExpressJS
-MongoDB
-Axios
+----ReactJS
+----CSS (Reset,Bootstrap)
+----NodeJS
+----ExpressJS
+----Axios
+----MongoDB
+
 ----------------------------------------------------------
 UI Preview:
 ----------------------------------------------------------
